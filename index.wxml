@@ -1,0 +1,28 @@
+
+
+<scroll-view 
+    class="scroll-list-view" 
+    bindscrolltoupper="_handleScrolltoupper" 
+    bindscrolltolower="_bindleScrolltolower"
+    bindscroll="_handleScroll"
+    scroll-y="{{scrollY}}" 
+    scroll-x="{{scrollX}}" 
+    upper-threshold="{{upperThreshold}}"
+    lower-threshold="{{lowerThreshold}}"
+    style="{{style + 'height:' + containerHeight + 'px'}}"
+    id="{{containerId}}"
+>
+    <slot name="list-view-before" />
+    <view wx:for="{{ groupList }}" id="wrp_{{ pageIndex }}" wx:for-index="pageIndex" wx:for-item="listItem"
+        wx:key="index">
+        <block wx:for="{{ listItem }}" wx:for-item="item" wx:key="index">
+            <block wx:if="{{ item.listViewItemHeight }}">
+                <skeleton height="{{item.listViewItemHeight}}"  />
+            </block>
+            <block wx:else>
+                <item item="{{item}}" index="{{index}}" class="list-item" data-index="{{ item.itemIndex }}" />
+            </block>
+        </block>
+    </view>
+    <slot name="list-view-after" />
+</scroll-view>
